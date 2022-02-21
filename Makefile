@@ -32,7 +32,7 @@ include Rules.mk
 
 APP := camera_jpeg_capture
 
-ARGUS_UTILS_DIR := /home/joaqo/robot/argus/utils
+ARGUS_UTILS_DIR := $(TOP_DIR)/argus/utils
 $(info ARGUS_UTILS_DIR is ${ARGUS_UTILS_DIR})
 
 SRCS := \

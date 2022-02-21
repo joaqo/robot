@@ -54,17 +54,15 @@ endif
 endif
 
 # Location of the CUDA Toolkit
-CUDA_PATH 	:= /usr/local/cuda
+CUDA_PATH	:= /usr/local/cuda
 
 # Use absolute path for better access from everywhere
-TOP_DIR 	:= /home/joaqo/robot
-CLASS_DIR 	:= $(TOP_DIR)/common/classes
-ALGO_CUDA_DIR 	:= $(TOP_DIR)/common/algorithm/cuda
-ALGO_TRT_DIR 	:= $(TOP_DIR)/common/algorithm/trt
-$(info $$TOP_DIR is ${TOP_DIR})
-$(info $$CLASS_DIR is ${CLASS_DIR})
-$(info $$ALGO_CUDA_DIR is ${ALGO_CUDA_DIR})
-$(info $$ALGO_TRT_DIR is ${ALGO_TRT_DIR})
+MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+MKFILE_DIR := $(dir $(MKFILE_PATH))
+TOP_DIR := $(MKFILE_DIR)
+CLASS_DIR := $(TOP_DIR)/common/classes
+ALGO_CUDA_DIR := $(TOP_DIR)/common/algorithm/cuda
+ALGO_TRT_DIR := $(TOP_DIR)/common/algorithm/trt
 
 ifeq ($(shell uname -m), aarch64)
 CROSS_COMPILE :=
