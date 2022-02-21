@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (c) 2016-2018, NVIDIA CORPORATION. All rights reserved.
+# Copyright (c) 2016-2017, NVIDIA CORPORATION. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -28,38 +28,17 @@
 #
 ###############################################################################
 
-include Rules.mk
+include ../../../Rules.mk
 
-APP := camera_jpeg_capture
-
-ARGUS_UTILS_DIR := /home/joaqo/robot/argus/utils
-$(info ARGUS_UTILS_DIR is ${ARGUS_UTILS_DIR})
-
-SRCS := \
-	main.cpp \
-	$(wildcard $(CLASS_DIR)/*.cpp) \
-	$(ARGUS_UTILS_DIR)/Thread.cpp
+SRCS := $(wildcard *.cpp)
 
 OBJS := $(SRCS:.cpp=.o)
 
-CPPFLAGS += \
-	-I"$(ARGUS_UTILS_DIR)"
-
-LDFLAGS += \
-	-lnveglstream_camconsumer -lnvargus_socketclient
-
-all: $(APP)
-
-$(CLASS_DIR)/%.o: $(CLASS_DIR)/%.cpp
-	$(AT)$(MAKE) -C $(CLASS_DIR)
+all: $(OBJS)
 
 %.o: %.cpp
 	@echo "Compiling: $<"
-	$(CPP) $(CPPFLAGS) -c $< -o $@
-
-$(APP): $(OBJS)
-	@echo "Linking: $@"
-	$(CPP) -o $@ $(OBJS) $(CPPFLAGS) $(LDFLAGS)
+	$(CPP) $(CPPFLAGS) -Wno-deprecated-declarations -c $<
 
 clean:
 	$(AT)rm -rf $(APP) $(OBJS)
